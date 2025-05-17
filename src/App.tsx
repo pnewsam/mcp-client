@@ -1,6 +1,6 @@
-import './App.css'
-import { MCPProvider } from './contexts/MCPContext'
-import Main from './components/Main'
+import "./App.css";
+import { MCPProvider } from "./contexts/MCPProvider";
+import Main from "./components/Main";
 
 function App() {
   return (
@@ -10,4 +10,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

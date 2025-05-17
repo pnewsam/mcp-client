@@ -1,19 +1,17 @@
-import { ChevronsUpDown } from 'lucide-react';
+import { ChevronsUpDown } from "lucide-react";
 import {
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent,
-} from '@/components/ui/collapsible';
-import { useMCPContext } from '@/contexts/MCPContext';
+} from "@/components/ui/collapsible";
+import { useMCPContext } from "@/contexts/MCPContext";
 
 export default function Sidebar() {
   const { resources = [], tools = [], prompts = [] } = useMCPContext();
 
   return (
     <aside className="border-r border-solid border-zinc-300 p-4">
-      <h1 className="text-h3 tracking-tight font-bold mb-4">
-        MindsDB MCPClient
-      </h1>
+      <h1 className="text-h3 tracking-tight font-bold mb-4">MCPClient</h1>
       <h2 className="text-2xl tracking-tight font-bold mb-2">Resources</h2>
       <div className="mb-2">
         {resources.length > 0 ? (

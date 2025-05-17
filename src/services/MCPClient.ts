@@ -1,5 +1,5 @@
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { SSEClientTransport } from '@modelcontextprotocol/sdk/client/sse.js';
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
 
 export class MCPClient {
   private MCP_SERVER_URL: URL;
@@ -8,13 +8,13 @@ export class MCPClient {
   private client: Client;
 
   constructor() {
-    this.MCP_SERVER_URL = new URL('http://127.0.0.1:47337/sse');
+    this.MCP_SERVER_URL = new URL("http://127.0.0.1:47337/sse");
     this.connected = false;
     this.transport = new SSEClientTransport(this.MCP_SERVER_URL);
     this.client = new Client(
       {
-        name: 'mindsdb-mcp-client',
-        version: '1.0.0',
+        name: "mcp-client",
+        version: "1.0.0",
       },
       {
         capabilities: {
@@ -31,7 +31,7 @@ export class MCPClient {
       await this.client.connect(this.transport);
       this.connected = true;
     } catch (error) {
-      console.error('Error connecting client', error);
+      console.error("Error connecting client", error);
     }
   }
 
@@ -41,23 +41,26 @@ export class MCPClient {
   }
 
   async listResources() {
-    return (await this.execute('listResources'))?.resources || [];
+    return (await this.execute("listResources"))?.resources || [];
   }
 
   async listPrompts() {
-    return (await this.execute('listPrompts'))?.prompts || [];
+    return (await this.execute("listPrompts"))?.prompts || [];
   }
 
   async listTools() {
-    return (await this.execute('listTools'))?.tools || [];
+    return (await this.execute("listTools"))?.tools || [];
   }
 
-  async callTool(tool_call_id: string, tool_call_args: any) {
-    return await this.execute('callTool', { tool_call_id, tool_call_args });
+  async callTool(
+    tool_call_id: string,
+    tool_call_args: Record<string, unknown>
+  ) {
+    return await this.execute("callTool", { tool_call_id, tool_call_args });
   }
 }
 
-let mcpClient: MCPClient | null = null  ;
+let mcpClient: MCPClient | null = null;
 
 export const getMCPClient = async () => {
   if (!mcpClient) {

@@ -1,4 +1,5 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
+import { type ChatCompletionMessageToolCall } from "openai/resources/chat/completions";
 
 type Resource = {
   id: string;
@@ -18,9 +19,11 @@ type Prompt = {
   description: string;
 };
 
-type HistoryItem = {
-  role: string;
+export type HistoryItem = {
+  role: "system" | "user" | "assistant" | "tool";
   content: string;
+  name?: string;
+  tool_calls?: ChatCompletionMessageToolCall[];
 };
 
 type MCPContextType = {
@@ -29,6 +32,13 @@ type MCPContextType = {
   tools: Tool[];
   prompts: Prompt[];
   history: HistoryItem[];
+  message: string;
+  setMessage: (message: string) => void;
+  sendMessage: (prompt: string) => Promise<void>;
+  callTool: (
+    tool_call_id: string,
+    tool_call_args: Record<string, unknown>
+  ) => Promise<void>;
 };
 
 export const MCPContext = createContext<MCPContextType>({
@@ -37,12 +47,16 @@ export const MCPContext = createContext<MCPContextType>({
   tools: [],
   prompts: [],
   history: [],
+  message: "",
+  setMessage: () => {},
+  sendMessage: async () => {},
+  callTool: async () => {},
 });
 
 export const useMCPContext = () => {
   const context = useContext(MCPContext);
   if (!context) {
-    throw new Error('useMCPContext must be used within a MCPProvider');
+    throw new Error("useMCPContext must be used within a MCPProvider");
   }
   return context;
 };
