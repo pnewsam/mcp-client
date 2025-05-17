@@ -15,6 +15,7 @@ import { MCPContext } from "./MCPContext";
 import type { HistoryItem } from "./MCPContext";
 
 export const MCPProvider = ({ children }: { children: React.ReactNode }) => {
+  const [mcpServerUrl, setMcpServerUrl] = useState("http://127.0.0.1:47337");
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState<HistoryItem[]>([
@@ -147,6 +148,8 @@ export const MCPProvider = ({ children }: { children: React.ReactNode }) => {
         resources,
         tools,
         prompts,
+        mcpServerUrl,
+        setMcpServerUrl,
         history,
         message,
         setMessage,

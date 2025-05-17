@@ -33,6 +33,8 @@ type MCPContextType = {
   prompts: Prompt[];
   history: HistoryItem[];
   message: string;
+  mcpServerUrl: string;
+  setMcpServerUrl: (mcpServerUrl: string) => void;
   setMessage: (message: string) => void;
   sendMessage: (prompt: string) => Promise<void>;
   callTool: (
@@ -48,6 +50,8 @@ export const MCPContext = createContext<MCPContextType>({
   prompts: [],
   history: [],
   message: "",
+  mcpServerUrl: "",
+  setMcpServerUrl: () => {},
   setMessage: () => {},
   sendMessage: async () => {},
   callTool: async () => {},

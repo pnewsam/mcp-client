@@ -5,14 +5,30 @@ import {
   CollapsibleContent,
 } from "@/components/ui/collapsible";
 import { useMCPContext } from "@/contexts/MCPContext";
+import { Input } from "./ui/input";
 
 export default function Sidebar() {
-  const { resources = [], tools = [], prompts = [] } = useMCPContext();
+  const {
+    resources = [],
+    tools = [],
+    prompts = [],
+    mcpServerUrl,
+    setMcpServerUrl,
+  } = useMCPContext();
 
   return (
     <aside className="border-r border-solid border-zinc-300 p-4">
-      <h1 className="text-h3 tracking-tight font-bold mb-4">MCPClient</h1>
-      <h2 className="text-2xl tracking-tight font-bold mb-2">Resources</h2>
+      <h1 className="text-lg tracking-tight font-bold mb-4">MCPClient</h1>
+      <h2 className="text-md tracking-tight font-bold mb-2">MCP Server</h2>
+      <div className="mb-2">
+        <Input
+          type="text"
+          placeholder="MCP Server URL"
+          value={mcpServerUrl}
+          onChange={(e) => setMcpServerUrl(e.target.value)}
+        />
+      </div>
+      <h2 className="text-md tracking-tight font-bold mb-2">Resources</h2>
       <div className="mb-2">
         {resources.length > 0 ? (
           resources.map((resource) => (
@@ -45,8 +61,8 @@ export default function Sidebar() {
         )}
       </div>
 
-      <h2 className="text-2xl tracking-tight font-bold mb-2">Tools</h2>
-      <div className="mb-4">
+      <h2 className="text-md tracking-tight font-bold mb-2">Tools</h2>
+      <div className="mb-2">
         {tools.length > 0 ? (
           tools.map((tool) => (
             <Collapsible
@@ -80,7 +96,7 @@ export default function Sidebar() {
         )}
       </div>
 
-      <h2 className="text-2xl tracking-tight font-bold mb-2">Prompts</h2>
+      <h2 className="text-md tracking-tight font-bold mb-2">Prompts</h2>
       <div className="mb-2">
         {prompts.length > 0 ? (
           prompts.map((prompt) => (
